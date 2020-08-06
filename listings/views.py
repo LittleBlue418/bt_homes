@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from .models import Listing
@@ -23,8 +23,19 @@ def index(request):
 
     return render(request, 'listings/listings.html', context)
 
+
+"""
+    Method for the single listing page. Returns a single listing using the listing id
+    (as the primary key) passed in when a link / button is clicked; or a 404 page if not found.
+"""
 def listing(request, listing_id):
-    return render(request, 'listings/listing.html')
+    listing = get_object_or_404(Listing, pk=listing_id)
+
+    context = {
+        'listing': listing
+    }
+
+    return render(request, 'listings/listing.html', context)
 
 def search(request):
     return render(request, 'listings/search.html')

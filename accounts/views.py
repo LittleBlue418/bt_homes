@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 """
     Log in user, redirect based on request method.
@@ -13,10 +14,11 @@ def login(request):
 
 """
     Register an account, redirect based on request method.
+    Capturing errors.
 """
 def register(request):
     if request.method == 'POST':
-        print('SUBMITTES REG')
+        messages.error(request, 'Testing error message')
         return redirect('register')
     else:
         return render(request, 'accounts/register.html')
